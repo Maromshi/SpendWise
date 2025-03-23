@@ -3,14 +3,28 @@ const Transaction = require("../models/Transaction");
 
 const router = express.Router();
 
-// Transaction by ID
-router.get("/:userId", async (req, res) => {
+// Transactions by userID
+router.get("/transactions/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const allTransactions = await Transaction.find({ userId });
     res.json(allTransactions);
   } catch (error) {
     res.status(500).json({ error: "Error fetching transactions" });
+  }
+});
+router.get("/transactions/single/:transactionId", async (req, res) => {
+  try {
+    const { transactionId } = req.params;
+    const transaction = await Transaction.findById(transactionId);
+
+    if (!transaction) {
+      return res.status(404).json({ message: "Transaction not found" });
+    }
+
+    res.json(transaction);
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching transaction" });
   }
 });
 

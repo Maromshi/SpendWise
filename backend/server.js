@@ -6,12 +6,15 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
 
+const userRoutes = require("./routes/userRoutes");
+
 const app = express();
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
+app.use("/api/users", userRoutes);
 
 // Connected to MongoDB
 const MONGO_URI =
@@ -21,9 +24,6 @@ mongoose
   .then(() => console.log("✅ Connected to MongoDB"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// app.get("/api", (req, res) => {
-//   res.json({ message: "SpendWise API is running!" });
-// });
 app.use("/api", transactionRoutes);
 
 const PORT = process.env.PORT || 4000;
