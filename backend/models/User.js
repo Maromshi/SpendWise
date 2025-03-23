@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// temp comment to force Git to track file again
 
 const userSchema = new mongoose.Schema(
   {
