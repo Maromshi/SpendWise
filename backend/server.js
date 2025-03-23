@@ -14,6 +14,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
+
+app.use("/api", transactionRoutes);
 app.use("/api/users", userRoutes);
 
 // Connected to MongoDB
@@ -23,8 +25,6 @@ mongoose
   .connect(MONGO_URI)
   .then(() => console.log("✅ Connected to MongoDB"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
-
-app.use("/api", transactionRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
