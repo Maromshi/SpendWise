@@ -1,10 +1,11 @@
 const express = require("express");
 const Transaction = require("../models/Transaction");
+const protect = require("../middleware/authenticationMiddleware");
 
 const router = express.Router();
 
 // Transactions by userID
-router.get("/transactions/:userId", async (req, res) => {
+router.get("/transactions/:userId", protect, async (req, res) => {
   try {
     const { userId } = req.params;
     const allTransactions = await Transaction.find({ userId });
@@ -13,7 +14,7 @@ router.get("/transactions/:userId", async (req, res) => {
     res.status(500).json({ error: "Error fetching transactions" });
   }
 });
-router.get("/transactions/single/:transactionId", async (req, res) => {
+router.get("/transactions/single/:transactionId", protect, async (req, res) => {
   try {
     const { transactionId } = req.params;
     const transaction = await Transaction.findById(transactionId);
@@ -29,7 +30,7 @@ router.get("/transactions/single/:transactionId", async (req, res) => {
 });
 
 // Add Transaction
-router.post("/", async (req, res) => {
+router.post("/", protect, async (req, res) => {
   try {
     const { userId, type, category, amount, paymentMethod, date, description } =
       req.body;
@@ -57,7 +58,7 @@ router.post("/", async (req, res) => {
     res.status(500).json({ error: "Error creating transaction" });
   }
 });
-router.delete("/user/:userId", async (req, res) => {
+router.delete("/user/:userId", protect, async (req, res) => {
   try {
     const { userId } = req.params;
     const deletedTransactions = await Transaction.deleteMany({ userId });
@@ -75,7 +76,7 @@ router.delete("/user/:userId", async (req, res) => {
   }
 });
 // Update transaction
-router.put("/:transactionId", async (req, res) => {
+router.put("/:transactionId", protect, async (req, res) => {
   try {
     const { transactionId } = req.params;
     const updatedTransaction = await Transaction.findByIdAndUpdate(
