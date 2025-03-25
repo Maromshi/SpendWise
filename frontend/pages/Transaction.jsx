@@ -10,7 +10,12 @@ const Transactions = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await API.get(`/transactions/${userId}`);
+        const token = localStorage.getItem("token");
+        const userId = localStorage.getItem("userId");
+
+        const response = await API.get(`/transactions/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setTransactions(response.data);
       } catch (error) {
         console.error("Error fetching transactions:", error);
@@ -23,24 +28,24 @@ const Transactions = () => {
   }, [userId]);
 
   return (
-    <div class="relative overflow-x-auto">
+    <div className="relative overflow-x-auto">
       <h1>Transactions</h1>
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" className="px-6 py-3">
               Type
             </th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" className="px-6 py-3">
               Category
             </th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" className="px-6 py-3">
               Amount
             </th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" className="px-6 py-3">
               Payment Method
             </th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" className="px-6 py-3">
               Date
             </th>
           </tr>
@@ -50,19 +55,19 @@ const Transactions = () => {
             transactions.map((transaction, index) => (
               <tr
                 key={index}
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
               >
-                <td class="px-6 py-4">{transaction.type}</td>
-                <td class="px-6 py-4">{transaction.category}</td>
-                <td class="px-6 py-4">{transaction.amount} ₪</td>
-                <td class="px-6 py-4">{transaction.paymentMethod}</td>
-                <td class="px-6 py-4">
+                <td className="px-6 py-4">{transaction.type}</td>
+                <td className="px-6 py-4">{transaction.category}</td>
+                <td className="px-6 py-4">{transaction.amount} ₪</td>
+                <td className="px-6 py-4">{transaction.paymentMethod}</td>
+                <td className="px-6 py-4">
                   {new Date(transaction.date).toLocaleDateString()}
                 </td>
               </tr>
             ))
           ) : (
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
               <td colSpan="5">No transactions found.</td>
             </tr>
           )}

@@ -2,26 +2,15 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Transactions from "../pages/Transaction";
 import AddTransaction from "../pages/AddTransaction";
 import React from "react";
+import NavBar from "./components/NavBar";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-100">
-        <nav className="bg-white shadow p-4 flex justify-center gap-6 text-blue-600 font-semibold">
-          <Link to="/" className="hover:underline">
-            Home
-          </Link>
-          <Link
-            to="/transactions/652b6a5c3e5a8c2b3a4b1e22"
-            className="hover:underline"
-          >
-            Transactions
-          </Link>
-          <Link to="/transactions/add-transaction" className="hover:underline">
-            Add Transaction
-          </Link>
-        </nav>
-
+        <NavBar />
         <main className="p-4">
           <Routes>
             <Route
@@ -37,6 +26,8 @@ function App() {
               path="/transactions/add-transaction"
               element={<AddTransaction />}
             />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </main>
       </div>

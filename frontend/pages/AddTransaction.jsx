@@ -12,7 +12,9 @@ const AddTransaction = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const userId = "652b6a5c3e5a8c2b3a4b1e22";
+
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
 
     const transaction = {
       userId,
@@ -25,7 +27,11 @@ const AddTransaction = () => {
     };
 
     try {
-      await axios.post("http://localhost:4000/api/transactions", transaction);
+      await axios.post("http://localhost:4000/api", transaction, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setMessage("✅ Transaction added successfully!");
       clearForm();
     } catch (error) {
