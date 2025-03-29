@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../src/context/AuthContext";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -9,6 +10,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,9 +28,9 @@ const Register = () => {
           password,
         }
       );
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("userId", data.userId);
+      // Use the login function from useAuth to store the token and userId in the local storage
 
+      login(data.token, data.userId);
       alert("🟢 Account created successfully!");
       navigate(`/transactions/${data.userId}`);
     } catch (error) {

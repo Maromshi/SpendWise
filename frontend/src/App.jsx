@@ -5,6 +5,7 @@ import React from "react";
 import NavBar from "./components/NavBar";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+// import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
@@ -26,8 +27,8 @@ function App() {
               path="/transactions/add-transaction"
               element={<AddTransaction />}
             />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="transactions/login" element={<Login />} />
+            <Route path="transactions/register" element={<Register />} />
           </Routes>
         </main>
       </div>
