@@ -2,30 +2,36 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import React from "react";
 import API from "../services/axios";
+import { useAuth } from "../src/context/AuthContext";
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
   const { userId } = useParams();
+  const { token } = useAuth();
 
   useEffect(() => {
+    console.log("Debug values:", { userId, token });
+
     const fetchTransactions = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const userId = localStorage.getItem("userId");
-
-        const response = await API.get(`/transactions/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        console.log("Making API request to:", `/transactions/${userId}`);
+        const response = await API.get(`/transactions/${userId}`);
+        console.log("API response:", response.data);
         setTransactions(response.data);
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }
     };
 
-    if (userId) {
+    if (userId && token) {
       fetchTransactions();
+    } else {
+      console.log("Missing required values:", {
+        userId: !!userId,
+        token: !!token,
+      });
     }
-  }, [userId]);
+  }, [userId, token]);
 
   return (
     <div className="relative overflow-x-auto">
@@ -68,7 +74,9 @@ const Transactions = () => {
             ))
           ) : (
             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-              <td colSpan="5">No transactions found.</td>
+              <td colSpan="5" className="px-6 py-4 text-center">
+                No transactions found.
+              </td>
             </tr>
           )}
         </tbody>

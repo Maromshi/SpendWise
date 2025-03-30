@@ -1,7 +1,9 @@
-import axios from "axios";
 import React, { useState } from "react";
+import { useAuth } from "../src/context/AuthContext";
+import API from "../services/axios";
 
 const AddTransaction = () => {
+  const { token, userId } = useAuth();
   const [category, setCategory] = useState("");
   const [type, setType] = useState("");
   const [amount, setAmount] = useState("");
@@ -12,9 +14,6 @@ const AddTransaction = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
-    const userId = localStorage.getItem("userId");
-    const token = localStorage.getItem("token");
 
     const transaction = {
       userId,
@@ -27,7 +26,7 @@ const AddTransaction = () => {
     };
 
     try {
-      await axios.post("http://localhost:4000/api", transaction, {
+      await API.post("/transactions", transaction, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

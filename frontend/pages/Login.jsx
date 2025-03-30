@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../src/context/AuthContext";
+import API from "../services/axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,13 +13,10 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post(
-        "http://localhost:4000/api/users/login",
-        {
-          email,
-          password,
-        }
-      );
+      const { data } = await API.post("/users/login", {
+        email,
+        password,
+      });
 
       // Use the login function from  useAuth to store the token and userId in the local storage
       login(data.token, data.userId);
