@@ -50,11 +50,9 @@ const NavBar = () => {
           <div className="hidden md:flex items-center space-x-4">
             {token ? (
               <>
-                <NavLink to="/transactions/add-transaction">
-                  Add Transaction
-                </NavLink>
+                <NavLink to="/transactions/add-transaction">Add Deal</NavLink>
                 <NavLink to={`/transactions/${localStorage.getItem("userId")}`}>
-                  Transactions
+                  Deals
                 </NavLink>
                 <button
                   onClick={handleLogout}
@@ -132,13 +130,13 @@ const NavBar = () => {
                 to="/transactions/add-transaction"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
               >
-                Add Transaction
+                Add Deal
               </Link>
               <Link
                 to={`/transactions/${localStorage.getItem("userId")}`}
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
               >
-                Transactions
+                Deals
               </Link>
               <button
                 onClick={handleLogout}
