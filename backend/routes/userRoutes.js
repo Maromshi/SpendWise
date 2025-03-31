@@ -4,6 +4,7 @@ const User = require("../models/User");
 const generateToken = require("../utils/generateToken");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { protect } = require("../middleware/authenticationMiddleware");
 
 // Register - creater new user
 router.post("/register", async (req, res) => {
@@ -60,4 +61,34 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
+// Get user budget
+router.get("/budget/:userId", protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json({ budget: user.budget || 0 });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// Update user budget
+router.post("/budget", protect, async (req, res) => {
+  try {
+    const { userId, amount } = req.body;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    user.budget = amount;
+    await user.save();
+    res.json({ budget: user.budget });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 module.exports = router;

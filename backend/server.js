@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
 
-app.use("/api", transactionRoutes);
+app.use("/api/transactions", transactionRoutes);
 app.use("/api/users", userRoutes);
 
 // Connected to MongoDB
