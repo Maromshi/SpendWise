@@ -40,9 +40,9 @@ const NavBar = () => {
           <div className="flex-shrink-0">
             <Link
               to="/"
-              className="text-2xl font-bold text-indigo-600 hover:text-indigo-500 transition-colors"
+              className="text-2xl font-bold text-blue-600 hover:text-indigo-500 transition-colors"
             >
-              SpendWise
+              Spend Wise
             </Link>
           </div>
 
