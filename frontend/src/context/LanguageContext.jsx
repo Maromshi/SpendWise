@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 
-// מילון התרגומים
+// dictionary of translations
 const translations = {
   he: {
     welcome: "ברוכים הבאים ל-Spend Wise",
@@ -69,6 +69,9 @@ const translations = {
     pleaseLogin: "אנא התחבר כדי להוסיף עסקה",
     sessionExpired: "החיבור פג תוקף, אנא התחבר מחדש",
     addDealError: "אירעה שגיאה בהוספת העסקה",
+    financialDashboard: "דשבורד פיננסי",
+    monthlySummary: "סיכום חודשי",
+    categoryDistribution: "התפלגות לפי קטגוריות",
   },
   en: {
     welcome: "Welcome to Spend Wise",
@@ -138,6 +141,9 @@ const translations = {
     pleaseLogin: "Please login to add a transaction",
     sessionExpired: "Session expired, please login again",
     addDealError: "Error occurred while adding the transaction",
+    financialDashboard: "Financial Dashboard",
+    monthlySummary: "Monthly Summary",
+    categoryDistribution: "Category Distribution",
   },
 };
 

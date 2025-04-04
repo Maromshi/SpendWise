@@ -16,6 +16,7 @@ export const BudgetProvider = ({ children }) => {
       thisWeek: 0,
       thisMonth: 0,
     },
+    transactions: [],
   });
 
   const fetchBudgetData = async () => {
@@ -70,6 +71,7 @@ export const BudgetProvider = ({ children }) => {
         spent: totalSpent,
         remaining: budget - totalSpent,
         recentActivity,
+        transactions,
       });
     } catch (error) {
       console.error("Error fetching budget data:", error);

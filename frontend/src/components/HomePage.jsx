@@ -3,10 +3,12 @@ import { useAuth } from "../context/AuthContext";
 import { useBudget } from "../context/BudgetContext";
 import { useLanguage } from "../context/LanguageContext";
 import { Link } from "react-router-dom";
+import Dashboard from "./Dashboard";
 
 const HomePage = () => {
   const { token, userId } = useAuth();
-  const { monthlyBudget, spent, remaining, recentActivity } = useBudget();
+  const { monthlyBudget, spent, remaining, recentActivity, transactions } =
+    useBudget();
   const { t, language, toggleLanguage } = useLanguage();
 
   // calculate budget usage percentage
@@ -172,6 +174,11 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+
+      {/* Dashboard Section */}
+      {transactions && transactions.length > 0 && (
+        <Dashboard transactions={transactions} />
+      )}
     </div>
   );
 };
