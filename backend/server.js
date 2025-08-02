@@ -25,11 +25,6 @@ mongoose
   .then(() => console.log("✅ Connected to MongoDB", mongoose.connection.name))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-mongoose.connection.once("open", () => {
-  console.log("✅ Connected to MongoDB");
-  console.log("📦 DB Name:", mongoose.connection.name);
-});
-
 const PORT = process.env.PORT || 5000;
 // app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 if (require.main === module) {
