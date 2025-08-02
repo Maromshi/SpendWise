@@ -1,11 +1,3 @@
-name: CI - Run backend tests
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -15,26 +7,26 @@ jobs:
         image: mongo
         ports:
           - 27017:27017
-        options: >-
-      --bind_ip_all
-
-
-  
+        options: --bind_ip_all
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd backend
+          npm ci
 
       - name: Run tests
-        run: npm test
         env:
           MONGO_URI: mongodb://localhost:27017/test
-          JWT_SECRET: some-secret
+          JWT_SECRET: supersecret123
+        run: |
+          cd backend
+          npm test
