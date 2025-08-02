@@ -25,7 +25,7 @@ const Login = () => {
 
       navigate(`/transactions/${data.userId}`);
     } catch (error) {
-      console.error("🔴 Login failed:", error);
+      console.error("🔴 Login failedd:", error);
       alert(
         "🔴 Login failed: " + (error.response?.data?.message || "Server error")
       );
