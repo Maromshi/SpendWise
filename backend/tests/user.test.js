@@ -1,5 +1,7 @@
 const request = require("supertest");
 const app = require("../server");
+const mongoose = require("mongoose");
+const connectDB = require("../config/db");
 
 describe("User API Tests", () => {
   let token;
@@ -7,6 +9,7 @@ describe("User API Tests", () => {
 
   beforeAll(async () => {
     // ניסיון לרשום את המשתמש
+    await connectDB(); // ← חיבור ל־MongoDB
     await request(app).post("/api/users/register").send({
       name: "Test User",
       email: "test@example.com",
@@ -27,6 +30,9 @@ describe("User API Tests", () => {
     if (!userId) {
       throw new Error("User ID not found in login response");
     }
+  });
+  afterAll(async () => {
+    await mongoose.connection.close(); // ← סוגר את החיבור ל־Mongo
   });
 
   test("should login successfully with correct credentials", async () => {
