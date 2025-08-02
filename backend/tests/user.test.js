@@ -6,31 +6,38 @@ describe("User API Tests", () => {
   let userId;
 
   beforeAll(async () => {
-    // Create a test user
+    // ניסיון לרשום את המשתמש
     await request(app).post("/api/users/register").send({
       name: "Test User",
-      email: "testuser@example.com",
+      email: "test@example.com",
       password: "123456",
     });
 
-    // Login to get the token
-    // This assumes the login endpoint returns a token in the response
+    // התחברות
     const loginRes = await request(app).post("/api/users/login").send({
-      email: "testuser@example.com",
+      email: "test@example.com",
       password: "123456",
     });
+
+    console.log("Login Response Body:", loginRes.body);
 
     token = loginRes.body.token;
-    userId = loginRes.body.user._id;
+    userId = loginRes.body.userId;
+
+    if (!userId) {
+      throw new Error("User ID not found in login response");
+    }
   });
 
   test("should login successfully with correct credentials", async () => {
     const res = await request(app).post("/api/users/login").send({
-      email: "testuser@example.com",
+      email: "test@example.com",
       password: "123456",
     });
+
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("token");
+    expect(res.body).toHaveProperty("userId");
   });
 
   test("should get budget with valid token", async () => {
