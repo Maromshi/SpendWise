@@ -2,8 +2,8 @@ const request = require("supertest");
 const app = require("../server");
 
 describe("User API Tests", () => {
-  let token;
-  let userId;
+  const token = loginRes.body.token;
+  const userId = loginRes.body.user._id;
 
   beforeAll(async () => {
     const email = "marom@example.com";
@@ -32,6 +32,7 @@ describe("User API Tests", () => {
       email,
       password,
     });
+    console.log("🔐 login response body:", loginRes.body);
 
     token = loginRes.body.token;
     userId = loginRes.body._id;
