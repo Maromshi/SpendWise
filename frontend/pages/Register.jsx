@@ -28,9 +28,8 @@ const Register = () => {
           password,
         }
       );
-      // Use the login function from useAuth to store the token and userId in the local storage
-
-      login(data.token, data.userId);
+      // Use the login function from useAuth to store the token, userId and name
+      login(data.token, data.userId, data.name);
       alert("🟢 Account created successfully!");
       navigate(`/transactions/${data.userId}`);
     } catch (error) {

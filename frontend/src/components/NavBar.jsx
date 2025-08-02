@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useLanguage } from "../context/LanguageContext";
 
 const NavBar = () => {
-  const { token, logout } = useAuth();
+  const { token, logout, userName } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
@@ -47,34 +49,59 @@ const NavBar = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center justify-between flex-1 px-8">
             {token ? (
               <>
-                <NavLink to="/transactions/add-transaction">Add Deal</NavLink>
-                <NavLink to={`/transactions/${localStorage.getItem("userId")}`}>
-                  Deals
-                </NavLink>
-                <button
-                  onClick={handleLogout}
-                  className="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 
-                    transition-colors duration-300 focus:outline-none focus:ring-2 
-                    focus:ring-red-500 focus:ring-offset-2"
-                >
-                  Logout
-                </button>
+                {/* User Greeting - Right Side */}
+                <div className="flex items-center space-x-2">
+                  <span className="text-gray-600 ml-4">
+                    {t("hello")},{" "}
+                    <span className="font-semibold text-indigo-600">
+                      {userName || ""}
+                    </span>
+                  </span>
+                </div>
+
+                {/* Navigation Links - Center */}
+                <div className="flex items-center space-x-4">
+                  <NavLink to="/transactions/add-transaction">
+                    {t("addNewDeal")}
+                  </NavLink>
+                  <NavLink
+                    to={`/transactions/${localStorage.getItem("userId")}`}
+                  >
+                    {t("myDeals")}
+                  </NavLink>
+                </div>
+
+                {/* Logout Button - Left Side */}
+                <div className="flex items-center">
+                  <button
+                    onClick={handleLogout}
+                    className="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 
+                      transition-colors duration-300 focus:outline-none focus:ring-2 
+                      focus:ring-red-500 focus:ring-offset-2"
+                  >
+                    {t("logout")}
+                  </button>
+                </div>
               </>
             ) : (
               <>
-                <NavLink to="/transactions/login">Login</NavLink>
-                <Link
-                  to="/transactions/register"
-                  className="px-4 py-2 text-white bg-indigo-600 rounded-md 
-                    hover:bg-indigo-500 transition-colors duration-300 
-                    focus:outline-none focus:ring-2 focus:ring-indigo-500 
-                    focus:ring-offset-2"
-                >
-                  Register
-                </Link>
+                <div></div> {/* Spacer for alignment */}
+                <div className="flex items-center space-x-4">
+                  <NavLink to="/transactions/login">{t("login")}</NavLink>
+                  <Link
+                    to="/transactions/register"
+                    className="px-4 py-2 text-white bg-indigo-600 rounded-md 
+                      hover:bg-indigo-500 transition-colors duration-300 
+                      focus:outline-none focus:ring-2 focus:ring-indigo-500 
+                      focus:ring-offset-2"
+                  >
+                    {t("register")}
+                  </Link>
+                </div>
+                <div></div> {/* Spacer for alignment */}
               </>
             )}
           </div>
@@ -126,23 +153,30 @@ const NavBar = () => {
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           {token ? (
             <>
+              {/* User Greeting - Mobile */}
+              <div className="px-3 py-2 text-base font-medium text-gray-600">
+                {t("hello")},{" "}
+                <span className="font-semibold text-indigo-600">
+                  {userName || ""}
+                </span>
+              </div>
               <Link
                 to="/transactions/add-transaction"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
               >
-                Add Deal
+                {t("addNewDeal")}
               </Link>
               <Link
                 to={`/transactions/${localStorage.getItem("userId")}`}
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
               >
-                Deals
+                {t("myDeals")}
               </Link>
               <button
                 onClick={handleLogout}
                 className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 hover:text-red-900 hover:bg-gray-50"
               >
-                Logout
+                {t("logout")}
               </button>
             </>
           ) : (
@@ -151,13 +185,13 @@ const NavBar = () => {
                 to="/transactions/login"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
               >
-                Login
+                {t("login")}
               </Link>
               <Link
                 to="/transactions/register"
                 className="block px-3 py-2 rounded-md text-base font-medium text-indigo-600 hover:text-indigo-900 hover:bg-gray-50"
               >
-                Register
+                {t("register")}
               </Link>
             </>
           )}

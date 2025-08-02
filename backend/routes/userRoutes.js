@@ -29,6 +29,8 @@ router.post("/register", async (req, res) => {
     res.status(201).json({
       message: "User created successfully",
       token: generateToken(newUser._id),
+      userId: newUser._id,
+      name: newUser.name,
     });
   } catch (error) {
     console.error("❌ Error registering user:", error);
@@ -55,6 +57,7 @@ router.post("/login", async (req, res) => {
       message: "Login successful",
       token,
       userId: user._id,
+      name: user.name,
     });
   } catch (error) {
     console.error("❌ Error logging in user:", error);

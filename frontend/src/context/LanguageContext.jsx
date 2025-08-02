@@ -72,6 +72,7 @@ const translations = {
     financialDashboard: "דשבורד פיננסי",
     monthlySummary: "סיכום חודשי",
     categoryDistribution: "התפלגות לפי קטגוריות",
+    hello: "שלום",
   },
   en: {
     welcome: "Welcome to Spend Wise",
@@ -144,6 +145,7 @@ const translations = {
     financialDashboard: "Financial Dashboard",
     monthlySummary: "Monthly Summary",
     categoryDistribution: "Category Distribution",
+    hello: "Hello",
   },
 };
 

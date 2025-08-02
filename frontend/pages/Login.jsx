@@ -18,8 +18,8 @@ const Login = () => {
         password,
       });
 
-      // Use the login function from  useAuth to store the token and userId in the local storage
-      login(data.token, data.userId);
+      // Use the login function from useAuth to store the token, userId and userName
+      login(data.token, data.userId, data.name);
 
       alert("🟢 Logged in successfully!");
 

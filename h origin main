@@ -1,0 +1,13 @@
+[33m0161733[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m add transaction delete with budget sync
+[33mb3f869d[m Updated Navbar and created dashboard
+[33m977b2e0[m[33m ([m[1;31morigin/main[m[33m)[m Created Context and updated Login and Register pages
+[33ma5b2bcc[m Updating routes
+[33m8851c37[m Login and Register pages
+[33m4ef25dc[m Added middleware with auth protection
+[33m46df999[m Added models
+[33m89f2a95[m Added JWT to server
+[33m4c91308[m Added User model and creating routes
+[33m5280b43[m Added front design using Tailwind
+[33m9c3e4dc[m Fixed nested Git repository issue in backend
+[33ma94fdea[m Updated API files in backend
+[33me10020e[m Reorganized project: Backend & Frontend in one repo
