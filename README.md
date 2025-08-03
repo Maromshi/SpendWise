@@ -120,8 +120,8 @@ SpendWise is a modern, bilingual (Hebrew/English) budget management application 
 
 - 🌐 **Bilingual Support**: Full Hebrew and English language support
 - 📊 **Advanced Dashboard**:
-  - Monthly income/expenses bar chart
-  - Category distribution pie chart
+  - Monthly income/expenses bar chart.
+  - Category distribution pie chart.
 - 💰 **Budget Management**:
   - Track monthly budget
   - Real-time budget usage monitoring
