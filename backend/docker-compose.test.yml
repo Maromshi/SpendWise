@@ -1,0 +1,39 @@
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  app:
+    build:
+      context: .
+    depends_on:
+      - mongo
+      - rabbitmq
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/test
+      - JWT_SECRET=supersecret123
+
+  consumer:
+    build:
+      context: .
+    command: node consumer.js
+    depends_on:
+      - rabbitmq
+
+  tester:
+    build:
+      context: .
+    command: npm test
+    depends_on:
+      - mongo
+      - app
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/test
+      - JWT_SECRET=supersecret123
