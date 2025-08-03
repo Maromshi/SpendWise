@@ -1,3 +1,31 @@
+# version: '3.8'
+
+# services:
+#   app:
+#     build: .
+#     ports:
+#       - "5000:5000"
+#     env_file:
+#       - .env
+#     depends_on:
+#       - mongo
+#     volumes:
+#       - .:/app
+
+#   mongo:
+#     image: mongo
+#     ports:
+#       - "27017:27017"
+#     env_file:
+#       - .env
+#   rabbitmq:
+#     image: rabbitmq:3-management
+#     ports:
+#       - "5672:5672"       #port for
+#       - "15672:15672"     #port for RabbitMQ management dashboard
+
+# docker-compose.yml
+
 version: '3.8'
 
 services:
@@ -9,6 +37,7 @@ services:
       - .env
     depends_on:
       - mongo
+      - rabbitmq  # <--- הוסף את השורה הזו
     volumes:
       - .:/app
 
@@ -18,3 +47,17 @@ services:
       - "27017:27017"
     env_file:
       - .env
+      
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+   # --- שירות ה-CONSUMER החדש ---
+  consumer:
+    build: .
+    command: node consumer.js  # הפקודה שתריץ את ה-Consumer
+    depends_on:
+      - rabbitmq
+    volumes:
+      - .:/app

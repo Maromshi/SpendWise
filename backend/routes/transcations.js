@@ -1,6 +1,7 @@
 const express = require("express");
 const Transaction = require("../models/Transaction");
 const { protect } = require("../middleware/authenticationMiddleware");
+const { sendToQueue } = require("../utils/rabbit");
 
 const router = express.Router();
 
@@ -50,6 +51,19 @@ router.post("/", protect, async (req, res) => {
     });
 
     await newTransaction.save();
+
+    // Send transaction to RabbitMQ queue
+
+    await sendToQueue({
+      userId,
+      type,
+      amount,
+      category,
+      description,
+      createdAt: new Date(),
+    });
+    console.log("Transaction sent to RabbitMQ queue");
+
     res.status(201).json({
       message: "Transaction created successfully",
       transaction: newTransaction,

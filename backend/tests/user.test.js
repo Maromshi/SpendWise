@@ -8,15 +8,14 @@ describe("User API Tests", () => {
   let userId;
 
   beforeAll(async () => {
-    // ניסיון לרשום את המשתמש
-    await connectDB(); // ← חיבור ל־MongoDB
+    // try to connect to MongoDB
+    await connectDB();
     await request(app).post("/api/users/register").send({
       name: "Test User",
       email: "test@example.com",
       password: "123456",
     });
 
-    // התחברות
     const loginRes = await request(app).post("/api/users/login").send({
       email: "test@example.com",
       password: "123456",
@@ -32,7 +31,7 @@ describe("User API Tests", () => {
     }
   });
   afterAll(async () => {
-    await mongoose.connection.close(); // ← סוגר את החיבור ל־Mongo
+    await mongoose.connection.close();
   });
 
   test("should login successfully with correct credentials", async () => {
